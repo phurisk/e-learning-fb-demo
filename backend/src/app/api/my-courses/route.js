@@ -1,0 +1,94 @@
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
+
+// GET: /api/my-courses?userId=xxx - หาคอร์สที่จ่ายเงินแล้ว
+export async function GET(req) {
+  try {
+    // ดึง userId จาก query parameter
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get('userId');
+    
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, error: "userId is required" }, 
+        { status: 400 }
+      );
+    }
+
+    console.log('Searching for enrolled courses for userId:', userId);
+    
+    // หาคอร์สที่ user ลงทะเบียนแล้ว (จากการซื้อคอร์สที่จ่ายเงินแล้ว)
+    const enrolledCourses = await prisma.enrollment.findMany({
+      where: { 
+        userId: userId,
+        status: { in: ['ACTIVE', 'COMPLETED'] }
+      },
+      include: {
+        course: {
+          include: {
+            instructor: {
+              select: { id: true, name: true, email: true }
+            },
+            category: {
+              select: { id: true, name: true }
+            },
+            chapters: {
+              include: {
+                contents: {
+                  orderBy: { order: 'asc' }
+                }
+              },
+              orderBy: { order: 'asc' }
+            }
+          }
+        }
+      },
+      orderBy: {
+        enrolledAt: 'desc'
+      }
+    });
+    
+    console.log('Total enrolled courses:', enrolledCourses.length);
+    
+    if (enrolledCourses.length === 0) {
+      return NextResponse.json({ 
+        success: true, 
+        courses: [],
+        count: 0,
+        message: 'No enrolled courses found'
+      });
+    }
+    
+
+    // แปลงข้อมูลให้เหมาะสม พร้อมเช็คหมดอายุจาก accessDuration (วัน)
+    const courses = enrolledCourses.map(enrollment => {
+      const enrolledAt = new Date(enrollment.enrolledAt);
+      const now = new Date();
+      // ใช้ accessDuration จากคอร์ส ถ้าไม่กำหนดใช้ default 60 วัน
+      const accessDuration = enrollment.course.accessDuration ?? 60;
+      const expireMs = accessDuration * 24 * 60 * 60 * 1000;
+      const isExpire = (now - enrolledAt) > expireMs;
+      return {
+        ...enrollment.course,
+        enrolledAt: enrollment.enrolledAt,
+        progress: enrollment.progress,
+        enrollmentId: enrollment.id,
+        enrollmentStatus: enrollment.status,
+        isExpire
+      };
+    });
+
+    return NextResponse.json({ 
+      success: true, 
+      courses: courses,
+      count: courses.length 
+    });
+    
+  } catch (error) {
+    console.error('Error fetching enrolled courses:', error);
+    return NextResponse.json(
+      { success: false, error: error.message }, 
+      { status: 500 }
+    );
+  }
+}
