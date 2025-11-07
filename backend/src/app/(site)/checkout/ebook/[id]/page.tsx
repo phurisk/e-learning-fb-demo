@@ -81,34 +81,34 @@ export default function CheckoutEbookPage() {
   const [checkingExisting, setCheckingExisting] = useState(true)
   useEffect(() => {
     let abort = false
-    ;(async () => {
-      try {
-        if (authLoading) { setCheckingExisting(true); return }
-        if (!isAuthenticated || !id) { setCheckingExisting(false); return }
-        setCheckingExisting(true)
-        const uid = (user as any)?.id
-        if (!uid) { setCheckingExisting(false); return }
-        const res0 = await fetch(`/api/orders?userId=${encodeURIComponent(uid)}`, { cache: "no-store" })
-        const text0 = await res0.text().catch(() => "")
-        let json0: any = null
-        try { json0 = text0 ? JSON.parse(text0) : null } catch {}
-        const list: any[] = Array.isArray(json0?.data) ? json0.data : (Array.isArray(json0) ? json0 : [])
-        const exists = list.find((o: any) => {
-          const t = String(o?.orderType || o?.type || "").toUpperCase()
-          const status = String(o?.status || "").toUpperCase()
-          const ebookId = o?.ebook?.id || o?.ebookId || (t === "EBOOK" ? (o?.itemId || o?.itemID) : undefined)
-          const cancelledLike = ["CANCELLED", "REJECTED"].includes(status)
-          return t === "EBOOK" && ebookId && String(ebookId) === String(id) && !cancelledLike
-        })
-        if (!abort && exists?.id) {
-          router.replace(`/order-success/${encodeURIComponent(String(exists.id))}`)
-          return
+      ; (async () => {
+        try {
+          if (authLoading) { setCheckingExisting(true); return }
+          if (!isAuthenticated || !id) { setCheckingExisting(false); return }
+          setCheckingExisting(true)
+          const uid = (user as any)?.id
+          if (!uid) { setCheckingExisting(false); return }
+          const res0 = await fetch(`/api/orders?userId=${encodeURIComponent(uid)}`, { cache: "no-store" })
+          const text0 = await res0.text().catch(() => "")
+          let json0: any = null
+          try { json0 = text0 ? JSON.parse(text0) : null } catch { }
+          const list: any[] = Array.isArray(json0?.data) ? json0.data : (Array.isArray(json0) ? json0 : [])
+          const exists = list.find((o: any) => {
+            const t = String(o?.orderType || o?.type || "").toUpperCase()
+            const status = String(o?.status || "").toUpperCase()
+            const ebookId = o?.ebook?.id || o?.ebookId || (t === "EBOOK" ? (o?.itemId || o?.itemID) : undefined)
+            const cancelledLike = ["CANCELLED", "REJECTED"].includes(status)
+            return t === "EBOOK" && ebookId && String(ebookId) === String(id) && !cancelledLike
+          })
+          if (!abort && exists?.id) {
+            router.replace(`/order-success/${encodeURIComponent(String(exists.id))}`)
+            return
+          }
+        } catch { }
+        finally {
+          if (!abort) setCheckingExisting(false)
         }
-      } catch {}
-      finally {
-        if (!abort) setCheckingExisting(false)
-      }
-    })()
+      })()
     return () => { abort = true }
   }, [id, isAuthenticated, authLoading, user, router])
 
@@ -209,7 +209,7 @@ export default function CheckoutEbookPage() {
           const res0 = await fetch(`/api/orders?userId=${encodeURIComponent(userId)}`, { cache: "no-store" })
           const text0 = await res0.text().catch(() => "")
           let json0: any = null
-          try { json0 = text0 ? JSON.parse(text0) : null } catch {}
+          try { json0 = text0 ? JSON.parse(text0) : null } catch { }
           const list: any[] = Array.isArray(json0?.data) ? json0.data : (Array.isArray(json0) ? json0 : [])
           const exists = list.find((o: any) => {
             const t = String(o?.orderType || o?.type || "").toUpperCase()
@@ -222,7 +222,7 @@ export default function CheckoutEbookPage() {
             router.push(`/order-success/${encodeURIComponent(String(exists.id))}`)
             return
           }
-        } catch {}
+        } catch { }
       }
 
       const payload: any = {

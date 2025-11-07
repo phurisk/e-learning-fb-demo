@@ -279,32 +279,5 @@ npm run type-check       # TypeScript type checking
 
 This project is licensed under a proprietary license. See the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+===========================================================================================================================================================
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under a proprietary license. See the [LICENSE](LICENSE) file for details.
-
-**Summary:**
-- ✅ Viewing for educational purposes is permitted
-- ❌ Commercial use requires written permission
-- ❌ Redistribution is not allowed
-- ✅ Use for "Physics P'Toey" website is authorized
-
-For licensing inquiries, please contact the copyright holder.
-
-## 👨‍💻 Author
-
-**ฟิสิกส์พี่เต้ย**
-- Website: [physics-ptoey.app](https://physics-ptoey.app)
-- Email: Physicsptoey@hotmail.com
-
----
-
-Made with ❤️ by Physics Ptoey Team
