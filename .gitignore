@@ -119,3 +119,6 @@ backend/public/uploads/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Frontend folder (merged into backend)
+frontend/
