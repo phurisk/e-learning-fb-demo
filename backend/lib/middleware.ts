@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export interface AuthenticatedRequest extends NextRequest {
   user?: {
     id: string;
-    email: string;
+    email: string | null;
     role: string;
   };
 }

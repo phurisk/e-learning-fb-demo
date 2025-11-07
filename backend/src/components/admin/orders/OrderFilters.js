@@ -11,9 +11,8 @@ import {
 import {
   ReloadOutlined,
   FilterOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
-
-const { Search } = Input;
 const { Option } = Select;
 
 export default function OrderFilters({
@@ -27,12 +26,13 @@ export default function OrderFilters({
     <Card style={{ marginBottom: "16px" }}>
       <Row gutter={[16, 16]} align="middle">
         <Col xs={24} sm={12} md={6}>
-          <Search
+          <Input
             placeholder="ค้นหาคำสั่งซื้อ, ลูกค้า, สินค้า"
             value={filters.search}
             onChange={(e) => onFilterChange('search', e.target.value)}
             style={{ width: '100%' }}
             allowClear
+            prefix={<SearchOutlined />}
           />
         </Col>
         {/* <Col xs={24} sm={12} md={4}>
