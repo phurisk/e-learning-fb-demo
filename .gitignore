@@ -109,11 +109,11 @@ Thumbs.db
 
 # Prisma
 */prisma/migrations/
-backend/prisma/migrations/
+app/prisma/migrations/
 
 # Uploads
 */public/uploads/
-backend/public/uploads/
+app/public/uploads/
 
 # Package manager lock files (keep one)
 package-lock.json

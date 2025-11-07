@@ -10,7 +10,7 @@
 
 ```
 e-learning-fb-demo/
-└── backend/                    # 🚀 Main Application
+└── app/                    # 🚀 Main Application
     ├── src/
     │   ├── app/
     │   │   ├── (site)/        # 🌐 Frontend Pages
@@ -265,12 +265,6 @@ npm run type-check       # TypeScript type checking
 - [Migration Guide](docs/MIGRATION_GUIDE.md) - คู่มือการรวมโปรเจกต์
 - [Development Notes](docs/MERGED_PROJECT_GUIDE.md) - บันทึกการพัฒนา
 
-### Technical Fixes
-- [CSS Fix Summary](docs/CSS_FIX_SUMMARY.md) - สรุปการแก้ไข CSS
-- [Layout Fix Summary](docs/LAYOUT_FIX_SUMMARY.md) - สรุปการแก้ไข Layout
-- [LINE Login Fix](docs/LINE_LOGIN_FIX.md) - แก้ไข LINE Login
-- [License Legal Info](docs/LICENSE_LEGAL_INFO.md) - ข้อมูลทางกฎหมายเกี่ยวกับ License
-
 ## 🤝 Contributing
 
 1. Fork the project
@@ -290,21 +284,3 @@ npm run type-check       # TypeScript type checking
 ## 📄 License
 
 This project is licensed under a proprietary license. See the [LICENSE](LICENSE) file for details.
-
-**Summary:**
-- ✅ Viewing for educational purposes is permitted
-- ❌ Commercial use requires written permission
-- ❌ Redistribution is not allowed
-- ✅ Use for "Physics P'Toey" website is authorized
-
-For licensing inquiries, please contact the copyright holder.
-
-## 👨‍💻 Author
-
-**ฟิสิกส์พี่เต้ย**
-- Website: [physics-ptoey.app](https://physics-ptoey.app)
-- Email: Physicsptoey@hotmail.com
-
----
-
-Made with ❤️ by Physics Ptoey Team

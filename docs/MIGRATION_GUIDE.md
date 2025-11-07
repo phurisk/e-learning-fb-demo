@@ -7,7 +7,7 @@
 ### สิ่งที่เปลี่ยนแปลง:
 
 1. **Port**: เปลี่ยนจาก 3001 เป็น 3000
-2. **Components**: คัดลอก components ทั้งหมดจาก frontend มาที่ `backend/src/components`
+2. **Components**: คัดลอก components ทั้งหมดจาก frontend มาที่ `app/src/components`
 3. **Dependencies**: รวม dependencies จาก frontend เข้ากับ backend
 4. **Configuration**: อัพเดท next.config.mjs, tailwind.config.js, และ tsconfig.json
 
@@ -45,7 +45,7 @@ npm start
 ## โครงสร้างโฟลเดอร์
 
 ```
-backend/
+app/
 ├── src/
 │   ├── app/
 │   │   ├── (site)/          # Frontend pages

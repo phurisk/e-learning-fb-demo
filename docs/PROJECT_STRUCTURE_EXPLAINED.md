@@ -2,13 +2,13 @@
 
 ## สถานะปัจจุบัน
 
-✅ **โปรเจกต์รวมกันแล้ว** - ทุกอย่างอยู่ใน `backend/` folder
+✅ **โปรเจกต์รวมกันแล้ว** - ทุกอย่างอยู่ใน `app/` folder
 ❌ **โฟลเดอร์ frontend เดิม** - ยังอยู่แต่ไม่ได้ใช้งานแล้ว (สามารถลบได้)
 
-## โครงสร้างที่ใช้งานจริง (backend/)
+## โครงสร้างที่ใช้งานจริง (app/)
 
 ```
-backend/
+app/
 ├── src/
 │   ├── app/
 │   │   ├── (site)/              # 🌐 Frontend Pages (จาก frontend เดิม)
@@ -167,14 +167,14 @@ e-learning-fb-demo/
 │   ├── components/
 │   └── ...
 │
-└── backend/           # ✅ ใช้งานจริง (มีทุกอย่างแล้ว)
+└── app/           # ✅ ใช้งานจริง (มีทุกอย่างแล้ว)
     ├── src/
     ├── prisma/
     └── ...
 ```
 
 ### สามารถลบ frontend/ ได้หรือไม่?
-✅ **ได้** - เพราะทุกอย่างถูกคัดลอกมาที่ `backend/src/` แล้ว
+✅ **ได้** - เพราะทุกอย่างถูกคัดลอกมาที่ `app/src/` แล้ว
 
 ### ถ้าอยากเก็บไว้:
 - เป็น backup
@@ -212,7 +212,7 @@ npm run dev
 
 ### โครงสร้างปัจจุบัน:
 ```
-1 Project (backend/)
+1 Project (app/)
 ├── Frontend (Next.js App Router)
 ├── Admin Panel (Next.js App Router)
 └── API (Next.js API Routes)

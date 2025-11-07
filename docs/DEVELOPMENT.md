@@ -9,7 +9,7 @@ e-learning-fb-demo/
 │   ├── components/       # React components
 │   ├── lib/             # Utilities และ API clients
 │   └── hooks/           # Custom React hooks
-├── backend/              # Next.js Backend API (Port 3001)
+├── app/              # Next.js Backend API (Port 3001)
 │   ├── src/app/api/     # API routes
 │   ├── lib/             # Backend utilities
 │   ├── prisma/          # Database schema และ migrations
@@ -168,8 +168,8 @@ npm run lint
 
 ### Port Conflicts
 - Frontend: เปลี่ยน port ใน `frontend/package.json`
-- Backend: เปลี่ยน port ใน `backend/package.json`
+- Backend: เปลี่ยน port ใน `app/package.json`
 
 ### CORS Issues
-- ตรวจสอบ CORS configuration ใน `backend/next.config.mjs`
+- ตรวจสอบ CORS configuration ใน `app/next.config.mjs`
 - ตรวจสอบ API URL ใน frontend environment variables

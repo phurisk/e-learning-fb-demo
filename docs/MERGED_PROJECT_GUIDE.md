@@ -7,8 +7,8 @@
 ### การเปลี่ยนแปลงหลัก:
 
 ✅ **Port**: เปลี่ยนจาก 3001 → 3000  
-✅ **Components**: คัดลอกทั้งหมดจาก frontend/components → backend/src/components  
-✅ **Hooks**: คัดลอกจาก frontend/hooks → backend/src/hooks  
+✅ **Components**: คัดลอกทั้งหมดจาก frontend/components → app/src/components  
+✅ **Hooks**: คัดลอกจาก frontend/hooks → app/src/hooks  
 ✅ **Libraries**: รวม lib files เข้าด้วยกัน  
 ✅ **Dependencies**: รวม packages ทั้งหมดจาก frontend  
 ✅ **Configurations**: อัพเดท next.config.mjs, tailwind.config.js, tsconfig.json  
@@ -43,7 +43,7 @@ npm run dev
 ## โครงสร้างโฟลเดอร์ใหม่
 
 ```
-backend/
+app/
 ├── src/
 │   ├── app/
 │   │   ├── (site)/              # Frontend pages (จาก frontend)

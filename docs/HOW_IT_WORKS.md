@@ -4,7 +4,7 @@
 
 **ใช่ครับ โปรเจกต์รวมกันแล้ว!** 
 
-- ✅ ทุกอย่างอยู่ใน `backend/` folder
+- ✅ ทุกอย่างอยู่ใน `app/` folder
 - ✅ รันแค่ `npm run dev` ครั้งเดียว
 - ✅ Frontend + Backend + API ทำงานร่วมกัน
 - ❌ โฟลเดอร์ `frontend/` เดิมไม่ได้ใช้แล้ว
@@ -14,7 +14,7 @@
 ## 📁 โครงสร้างไฟล์ที่ใช้งานจริง
 
 ```
-backend/src/app/
+app/src/app/
 │
 ├── layout.js                    # 🌍 Root Layout (ครอบทั้งหมด)
 │   └── Providers: SessionProvider, BackendAuthProvider, AntdRegistry
@@ -254,7 +254,7 @@ LINE_CLIENT_SECRET="..."
 **A:** ไม่ทำอะไรเลย! ไม่ได้ใช้งาน สามารถลบได้
 
 ### Q: ถ้าลบ frontend/ จะเสียอะไรไหม?
-**A:** ไม่เสีย เพราะทุกอย่างถูกคัดลอกมาที่ `backend/src/` แล้ว
+**A:** ไม่เสีย เพราะทุกอย่างถูกคัดลอกมาที่ `app/src/` แล้ว
 
 ### Q: ทำไมต้องมี 2 Auth Systems?
 **A:** เพราะ:
@@ -263,14 +263,14 @@ LINE_CLIENT_SECRET="..."
 - แต่ซิงค์กันผ่าน cookies + localStorage
 
 ### Q: API อยู่ที่ไหน?
-**A:** อยู่ใน `backend/src/app/api/`
+**A:** อยู่ใน `app/src/app/api/`
 - เข้าถึงได้ที่ `/api/*`
 - ตัวอย่าง: `/api/courses`, `/api/auth/login`
 
 ### Q: Database อยู่ที่ไหน?
 **A:** ใช้ Prisma
-- Schema: `backend/prisma/schema.prisma`
-- Client: `backend/src/lib/prisma.js`
+- Schema: `app/prisma/schema.prisma`
+- Client: `app/src/lib/prisma.js`
 
 ---
 
@@ -279,7 +279,7 @@ LINE_CLIENT_SECRET="..."
 ```
 ┌─────────────────────────────────────────────────┐
 │           1 Next.js Application                 │
-│              (backend/ folder)                  │
+│              (app/ folder)                  │
 ├─────────────────────────────────────────────────┤
 │                                                 │
 │  ┌──────────────┐  ┌──────────────┐            │
@@ -309,7 +309,7 @@ LINE_CLIENT_SECRET="..."
 
 ## ✅ Checklist - ตรวจสอบว่ารวมสำเร็จ
 
-- [x] รัน `npm run dev` ใน backend/ ได้
+- [x] รัน `npm run dev` ใน app/ ได้
 - [x] เข้า http://localhost:3000 เห็นหน้าแรก
 - [x] เข้า http://localhost:3000/admin/dashboard เห็นหน้า admin
 - [x] Login ด้วย LINE ได้
@@ -320,4 +320,4 @@ LINE_CLIENT_SECRET="..."
 
 ---
 
-**สรุป:** โปรเจกต์รวมกันสำเร็จแล้ว! ทุกอย่างอยู่ใน `backend/` และทำงานได้ปกติ โฟลเดอร์ `frontend/` เดิมไม่ได้ใช้แล้ว สามารถลบหรือเปลี่ยนชื่อเป็น backup ได้
+**สรุป:** โปรเจกต์รวมกันสำเร็จแล้ว! ทุกอย่างอยู่ใน `app/` และทำงานได้ปกติ โฟลเดอร์ `frontend/` เดิมไม่ได้ใช้แล้ว สามารถลบหรือเปลี่ยนชื่อเป็น backup ได้

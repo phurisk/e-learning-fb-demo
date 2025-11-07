@@ -103,7 +103,7 @@ WORKDIR /app
 # Install dependencies
 COPY package.json package-lock.json* ./
 COPY frontend/package.json ./frontend/
-COPY backend/package.json ./backend/
+COPY app/package.json ./app/
 COPY shared/package.json ./shared/
 RUN npm ci
 
@@ -127,7 +127,7 @@ RUN adduser --system --uid 1001 nextjs
 
 # Copy built applications
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next ./frontend/.next
-COPY --from=builder --chown=nextjs:nodejs /app/backend/.next ./backend/.next
+COPY --from=builder --chown=nextjs:nodejs /app/app/.next ./app/.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
@@ -224,11 +224,11 @@ npm run install:all
 
 # Setup environment
 cp .env.example .env
-cp backend/.env.example backend/.env
+cp app/.env.example app/.env
 cp frontend/.env.local.example frontend/.env.local
 
 # Edit environment files with production values
-nano backend/.env
+nano app/.env
 nano frontend/.env.local
 
 # Run database migrations
