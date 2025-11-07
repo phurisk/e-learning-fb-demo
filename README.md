@@ -260,12 +260,24 @@ npm run type-check       # TypeScript type checking
 
 ## 📚 Documentation
 
-- [Project Structure](backend/PROJECT_STRUCTURE_EXPLAINED.md) - อธิบายโครงสร้างโปรเจกต์
-- [How It Works](backend/HOW_IT_WORKS.md) - อธิบายการทำงาน
-- [Migration Guide](backend/MIGRATION_GUIDE.md) - คู่มือการรวมโปรเจกต์
-- [CSS Fix Summary](backend/CSS_FIX_SUMMARY.md) - สรุปการแก้ไข CSS
-- [Layout Fix Summary](backend/LAYOUT_FIX_SUMMARY.md) - สรุปการแก้ไข Layout
-- [LINE Login Fix](backend/LINE_LOGIN_FIX.md) - แก้ไข LINE Login
+- [Project Structure](docs/PROJECT_STRUCTURE_EXPLAINED.md) - อธิบายโครงสร้างโปรเจกต์
+- [How It Works](docs/HOW_IT_WORKS.md) - อธิบายการทำงาน
+- [Migration Guide](docs/MIGRATION_GUIDE.md) - คู่มือการรวมโปรเจกต์
+- [Development Notes](docs/MERGED_PROJECT_GUIDE.md) - บันทึกการพัฒนา
+
+### Technical Fixes
+- [CSS Fix Summary](docs/CSS_FIX_SUMMARY.md) - สรุปการแก้ไข CSS
+- [Layout Fix Summary](docs/LAYOUT_FIX_SUMMARY.md) - สรุปการแก้ไข Layout
+- [LINE Login Fix](docs/LINE_LOGIN_FIX.md) - แก้ไข LINE Login
+- [License Legal Info](docs/LICENSE_LEGAL_INFO.md) - ข้อมูลทางกฎหมายเกี่ยวกับ License
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 🤝 Contributing
 
@@ -279,5 +291,20 @@ npm run type-check       # TypeScript type checking
 
 This project is licensed under a proprietary license. See the [LICENSE](LICENSE) file for details.
 
-===========================================================================================================================================================
+**Summary:**
+- ✅ Viewing for educational purposes is permitted
+- ❌ Commercial use requires written permission
+- ❌ Redistribution is not allowed
+- ✅ Use for "Physics P'Toey" website is authorized
 
+For licensing inquiries, please contact the copyright holder.
+
+## 👨‍💻 Author
+
+**ฟิสิกส์พี่เต้ย**
+- Website: [physics-ptoey.app](https://physics-ptoey.app)
+- Email: Physicsptoey@hotmail.com
+
+---
+
+Made with ❤️ by Physics Ptoey Team
