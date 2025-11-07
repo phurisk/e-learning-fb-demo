@@ -433,9 +433,8 @@ export default function Books() {
 
           <div className="text-center mt-10 lg:mt-12">
             <Button
-              variant="outline"
               size="lg"
-              className="border-yellow-400 text-yellow-600 hover:bg-yellow-50 bg-transparent h-10 px-4 text-sm md:h-12 md:px-6 md:text-base"
+              className="border-2 border-yellow-400 text-yellow-600 hover:bg-yellow-50 bg-white hover:text-yellow-700 shadow-sm h-10 px-4 text-sm md:h-12 md:px-6 md:text-base"
               onClick={() => router.push("/books")}
             >
               ดูหนังสือเพิ่มเติม

@@ -222,9 +222,9 @@ export default function Articles() {
 
             <div className="text-center mt-12">
               <Button
+                asChild
                 size="lg"
-                variant="outline"
-                className="border-yellow-400 text-yellow-600 hover:bg-yellow-50 bg-transparent"
+                className="border-2 border-yellow-400 text-yellow-600 hover:bg-yellow-50 bg-white hover:text-yellow-700 shadow-sm"
               >
                 <Link href="/articles">ดูบทความเพิ่มเติม</Link>
               </Button>

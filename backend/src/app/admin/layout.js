@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "../contexts/AuthContext";
-import { Layout, theme } from "antd";
-import AdminSidebar from "../../components/admin/AdminSidebar";
-import AdminHeader from "../../components/admin/AdminHeader";
+import AdminSidebarNew from "../../components/admin/AdminSidebarNew";
 import AdminLoadingScreen from "../../components/admin/AdminLoadingScreen";
 import AdminAccessDenied from "../../components/admin/AdminAccessDenied";
-
-const { Header, Sider, Content } = Layout;
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/sections/footer";
+import { AuthProvider as FrontendAuthProvider } from "@/components/auth-provider";
+import { CartProvider } from "@/components/cart-provider";
 
 export default function AdminLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -19,9 +19,7 @@ export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+
 
   // Authentication and authorization check
   useEffect(() => {
@@ -91,51 +89,55 @@ export default function AdminLayout({ children }) {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      {/* Sidebar */}
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        width={220}
-        collapsedWidth={80}
-        style={{
-          background: "#001529",
-        }}
-      >
-        <AdminSidebar collapsed={collapsed} pathname={pathname} />
-      </Sider>
+    <FrontendAuthProvider>
+      <CartProvider>
+        <div className="min-h-screen flex flex-col bg-gray-50">
+          {/* Frontend Navigation */}
+          <Navigation />
 
-      {/* Main Layout */}
-      <Layout style={{ transition: "margin-left 0.2s" }}>
-        {/* Top Navigation Bar */}
-        <Header
-          style={{
-            padding: "0 24px",
-            background: colorBgContainer,
-            borderBottom: "1px solid #f0f0f0",
-            position: "sticky",
-            top: 0,
-            zIndex: 100,
-          }}
-        >
-          <AdminHeader
-            collapsed={collapsed}
-            onToggle={handleToggle}
-            user={user}
-            onLogout={handleLogout}
-          />
-        </Header>
+          {/* Admin Content with Sidebar */}
+          <div className="flex pt-16 lg:pt-20">
+            {/* Admin Sidebar */}
+            <aside
+              className={`fixed left-0 top-16 lg:top-20 h-[calc(100vh-4rem)] lg:h-[calc(100vh-5rem)] bg-gray-900 text-white transition-all duration-300 z-30 overflow-y-auto ${
+                collapsed ? "w-20" : "w-64"
+              }`}
+            >
+              {/* Toggle Button */}
+              <button
+                onClick={handleToggle}
+                className="w-full p-4 hover:bg-gray-800 transition-colors flex items-center justify-center border-b border-gray-800 sticky top-0 bg-gray-900 z-10"
+              >
+                {collapsed ? (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                  </svg>
+                )}
+              </button>
 
-        {/* Content Area */}
-        <Content
-          style={{
-            minHeight: "calc(100vh - 112px)",
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    </Layout>
+              <AdminSidebarNew collapsed={collapsed} pathname={pathname} />
+            </aside>
+
+            {/* Main Content */}
+            <main
+              className={`flex-1 transition-all duration-300 min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-5rem)] ${
+                collapsed ? "ml-20" : "ml-64"
+              }`}
+            >
+              {children}
+            </main>
+          </div>
+
+          {/* Frontend Footer - with margin to avoid sidebar overlap */}
+          <div className={`transition-all duration-300 ${collapsed ? "ml-20" : "ml-64"}`}>
+            <Footer />
+          </div>
+        </div>
+      </CartProvider>
+    </FrontendAuthProvider>
   );
 }

@@ -241,9 +241,9 @@ export default function LiveSchedulePage() {
         </div>
 
         {showVideoSection && (
-          <div className="mb-12 flex items-center justify-center">
-            <div className="bg-white w-200 rounded-2xl shadow-lg p-0 border border-gray-100">
-              <div className="aspect-video rounded-xl overflow-hidden ">
+          <div className="mb-12">
+            <div className="bg-white rounded-2xl shadow-lg p-0 border border-gray-100 max-w-full">
+              <div className="aspect-video rounded-xl overflow-hidden w-full">
                 {loadingVideo && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex flex-col items-center gap-4">

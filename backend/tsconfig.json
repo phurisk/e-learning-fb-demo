@@ -29,9 +29,15 @@
       "@/components/*": [
         "./src/components/*"
       ],
+      "@/ui/*": [
+        "./src/components/ui/*"
+      ],
       "@/lib/*": [
         "./src/lib/*",
         "./lib/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
       ],
       "@/shared/*": [
         "../shared/*"

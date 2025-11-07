@@ -93,9 +93,9 @@ export default function SimpleYouTubePlayer({ videoId, title, onError }: SimpleY
   }
 
   return (
-    <div className="w-full h-full relative">
+    <div className="absolute inset-0 w-full h-full">
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-900 flex items-center justify-center text-white">
+        <div className="absolute inset-0 bg-gray-900 flex items-center justify-center text-white z-10">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
             <p className="text-sm">กำลังโหลดวิดีโอ...</p>
@@ -106,9 +106,10 @@ export default function SimpleYouTubePlayer({ videoId, title, onError }: SimpleY
         key={`youtube-${videoId}-${currentUrlIndex}`}
         title={title ?? "YouTube video"}
         src={currentUrl}
-        className="w-full h-full"
+        className="absolute inset-0 w-full h-full border-0"
+        style={{ border: 0, display: "block" }}
         allowFullScreen
-        allow="autoplay; fullscreen"
+        allow="autoplay; fullscreen; picture-in-picture"
         onError={handleIframeError}
         onLoad={handleIframeLoad}
       />

@@ -22,10 +22,36 @@ export function AuthProvider({ children }) {
       setUser(session.user);
       setLoading(false);
     } else {
-      // Check if user is logged in from localStorage (legacy support)
+      // Check cookies first (from LINE login)
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      };
+
+      const userDataCookie = getCookie('user_data');
+      const authTokenCookie = getCookie('auth_token');
+
+      if (userDataCookie && authTokenCookie) {
+        try {
+          const userData = JSON.parse(decodeURIComponent(userDataCookie));
+          console.log('Setting user from cookie:', userData);
+          setUser(userData);
+          localStorage.setItem("user", JSON.stringify(userData));
+          localStorage.setItem("token", authTokenCookie);
+          setLoading(false);
+          return;
+        } catch (error) {
+          console.error("Error parsing user cookie:", error);
+        }
+      }
+
+      // Check localStorage (fallback)
       const savedUser = localStorage.getItem("user");
+      const savedToken = localStorage.getItem("token");
       
-      if (savedUser) {
+      if (savedUser && savedToken) {
         try {
           const parsedUser = JSON.parse(savedUser);
           console.log('Setting user from localStorage:', parsedUser);
@@ -33,9 +59,10 @@ export function AuthProvider({ children }) {
         } catch (error) {
           console.error("Error parsing saved user:", error);
           localStorage.removeItem("user");
+          localStorage.removeItem("token");
         }
       } else {
-        console.log('No user found in session or localStorage');
+        console.log('No user found in session, cookie, or localStorage');
       }
       setLoading(false);
     }
@@ -99,6 +126,11 @@ export function AuthProvider({ children }) {
     }
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    
+    // Clear cookies
+    document.cookie = "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "user_data=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   };
 
   const loginWithLine = () => {

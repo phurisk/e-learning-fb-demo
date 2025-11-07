@@ -1,0 +1,156 @@
+SPDX-License-Identifier: LicenseRef-Proprietary
+LicenseRef-Proprietary — E-Learning Full-Stack Platform
+Version 2.0 (2025-01-07)
+
+Copyright (c) 2025
+Phuris Kruacharee
+All rights reserved.
+
+================================================================================
+E-LEARNING FULL-STACK DEMO - PROPRIETARY LICENSE
+================================================================================
+
+This software includes:
+- Full-Stack E-Learning Platform (Frontend + Backend + Admin Panel)
+- Next.js 15 Application with TypeScript
+- Database Schema and API Routes
+- UI Components and Design System
+- Authentication and Authorization System
+- Payment Integration
+- Content Management System
+
+================================================================================
+
+[ENGLISH]
+
+1) Copyright and Ownership
+   - This software and all associated source code, documentation, and assets
+     are the exclusive property of Phuris Kruacharee.
+   - All rights are reserved under applicable copyright laws.
+   - This includes but is not limited to:
+     * Source code (Frontend, Backend, API)
+     * Database schemas and migrations
+     * UI/UX designs and components
+     * Documentation and configuration files
+     * Business logic and algorithms
+
+2) Rights and Restrictions
+   - This software is protected by copyright law.
+   - You may NOT:
+     * Copy, reproduce, or duplicate the software
+     * Modify, adapt, or create derivative works
+     * Distribute, publish, or make publicly available
+     * Sublicense, lease, lend, or transfer rights
+     * Reverse engineer, decompile, or disassemble
+     * Use for commercial purposes without permission
+     * Remove or alter copyright notices
+   - All such actions require prior written permission from the copyright holder.
+
+3) Permitted Use
+   - This software is provided as a demonstration/portfolio project.
+   - Viewing the code for educational purposes is permitted.
+   - Any other use requires explicit written authorization.
+   - Use for the "Physics P'Toey" website is authorized under separate agreement.
+
+4) Third-Party Components
+   - This software includes open-source components licensed under their
+     respective licenses (MIT, Apache 2.0, etc.).
+   - Such components remain under their original licenses.
+   - This proprietary license applies only to the original work and
+     custom implementations created by the copyright holder.
+
+5) Disclaimer of Warranty
+   - This software is provided "AS IS" without warranty of any kind,
+     either express or implied, including but not limited to:
+     * Merchantability
+     * Fitness for a particular purpose
+     * Non-infringement
+   - The copyright holder shall not be liable for any damages arising
+     from the use or inability to use this software.
+
+6) Limitation of Liability
+   - In no event shall the copyright holder be liable for any:
+     * Direct, indirect, incidental, or consequential damages
+     * Loss of profits, data, or business opportunities
+     * Damages arising from the use of this software
+   - This limitation applies even if advised of the possibility of such damages.
+
+7) Governing Law
+   - This license is governed by the copyright laws of Thailand.
+   - Any disputes shall be resolved under Thai jurisdiction.
+
+8) Contact Information
+   - For licensing inquiries, permissions, or questions:
+     * Name: Phuris Kruacharee
+     * Email: [Contact through repository]
+     * Project: E-Learning Full-Stack Demo
+
+================================================================================
+
+[THAI / ภาษาไทย]
+
+1) ลิขสิทธิ์และความเป็นเจ้าของ
+   - ซอฟต์แวร์นี้และส่วนประกอบทั้งหมด รวมถึงซอร์สโค้ด เอกสาร และสินทรัพย์ต่างๆ
+     เป็นทรัพย์สินของ ภูริส ครัวจารี โดยเฉพาะ
+   - สงวนสิทธิ์ทั้งหมดภายใต้กฎหมายลิขสิทธิ์ที่บังคับใช้
+   - รวมถึงแต่ไม่จำกัดเพียง:
+     * ซอร์สโค้ด (Frontend, Backend, API)
+     * โครงสร้างฐานข้อมูลและการ migration
+     * การออกแบบ UI/UX และ components
+     * เอกสารและไฟล์ configuration
+     * Business logic และ algorithms
+
+2) สิทธิ์และข้อจำกัด
+   - ซอฟต์แวร์นี้ได้รับความคุ้มครองตามกฎหมายลิขสิทธิ์
+   - ห้ามกระทำการดังต่อไปนี้:
+     * คัดลอก ทำซ้ำ หรือ duplicate ซอฟต์แวร์
+     * แก้ไข ดัดแปลง หรือสร้างงานดัดแปลง
+     * แจกจ่าย เผยแพร่ หรือเปิดเผยต่อสาธารณะ
+     * โอนสิทธิ์ ให้เช่า ให้ยืม หรือโอนสิทธิ์
+     * Reverse engineer, decompile หรือ disassemble
+     * ใช้เพื่อวัตถุประสงค์ทางการค้าโดยไม่ได้รับอนุญาต
+     * ลบหรือเปลี่ยนแปลงข้อความลิขสิทธิ์
+   - การกระทำดังกล่าวทั้งหมดต้องได้รับอนุญาตเป็นลายลักษณ์อักษรจากผู้ถือลิขสิทธิ์
+
+3) การใช้งานที่อนุญาต
+   - ซอฟต์แวร์นี้จัดทำขึ้นเพื่อเป็นโปรเจกต์สาธิต/portfolio
+   - อนุญาตให้ดูโค้ดเพื่อการศึกษา
+   - การใช้งานอื่นใดต้องได้รับอนุญาตเป็นลายลักษณ์อักษร
+   - การใช้งานสำหรับเว็บไซต์ "ฟิสิกส์ครูพี่เต้ย" ได้รับอนุญาตภายใต้ข้อตกลงแยกต่างหาก
+
+4) ส่วนประกอบจากบุคคลที่สาม
+   - ซอฟต์แวร์นี้รวมถึง open-source components ที่อยู่ภายใต้
+     ลิขสิทธิ์ของตนเอง (MIT, Apache 2.0, ฯลฯ)
+   - Components ดังกล่าวยังคงอยู่ภายใต้ลิขสิทธิ์เดิม
+   - ลิขสิทธิ์นี้ใช้กับงานต้นฉบับและการพัฒนาที่สร้างโดยผู้ถือลิขสิทธิ์เท่านั้น
+
+5) การปฏิเสธการรับประกัน
+   - ซอฟต์แวร์นี้จัดให้ "ตามสภาพที่เป็นอยู่ (AS IS)" โดยไม่มีการรับประกันใดๆ
+     ทั้งโดยชัดแจ้งหรือโดยปริยาย รวมถึงแต่ไม่จำกัดเพียง:
+     * ความสามารถในการขาย
+     * ความเหมาะสมสำหรับวัตถุประสงค์เฉพาะ
+     * การไม่ละเมิดสิทธิ์
+   - ผู้ถือลิขสิทธิ์ไม่รับผิดชอบต่อความเสียหายใดๆ ที่เกิดจาก
+     การใช้งานหรือไม่สามารถใช้งานซอฟต์แวร์นี้
+
+6) ข้อจำกัดความรับผิด
+   - ผู้ถือลิขสิทธิ์ไม่รับผิดชอบต่อ:
+     * ความเสียหายโดยตรง โดยอ้อม หรือที่เป็นผลสืบเนื่อง
+     * การสูญเสียกำไร ข้อมูล หรือโอกาสทางธุรกิจ
+     * ความเสียหายที่เกิดจากการใช้งานซอฟต์แวร์นี้
+   - ข้อจำกัดนี้ใช้แม้ว่าจะได้รับแจ้งถึงความเป็นไปได้ของความเสียหายดังกล่าว
+
+7) กฎหมายที่ใช้บังคับ
+   - ลิขสิทธิ์นี้อยู่ภายใต้บังคับของกฎหมายลิขสิทธิ์ของประเทศไทย
+   - ข้อพิพาทใดๆ จะได้รับการแก้ไขภายใต้เขตอำนาจศาลไทย
+
+8) ข้อมูลการติดต่อ
+   - สำหรับการสอบถามเกี่ยวกับลิขสิทธิ์ การขออนุญาต หรือคำถาม:
+     * ชื่อ: ภูริส ครัวจารี
+     * อีเมล: [ติดต่อผ่าน repository]
+     * โปรเจกต์: E-Learning Full-Stack Demo
+
+================================================================================
+
+Last Updated: January 7, 2025
+Version: 2.0

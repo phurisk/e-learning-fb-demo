@@ -115,33 +115,76 @@ export async function GET(request) {
       console.log('✅ Updated existing user:', { id: user.id, email: user.email });
     }
 
-    // 4. ตรวจสอบ state parameter เพื่อดู origin ที่ส่งมา
+    // 4. สร้าง JWT token สำหรับ authentication
+    const jwt = require('jsonwebtoken');
+    const token = jwt.sign(
+      { 
+        userId: user.id, 
+        email: user.email,
+        name: user.name,
+        role: user.role 
+      },
+      process.env.NEXTAUTH_SECRET || 'fallback-secret',
+      { expiresIn: '30d' }
+    );
+
+    // 5. ตรวจสอบ state parameter เพื่อดู origin ที่ส่งมา
     let redirectUrl;
     
-    if (state && state.startsWith('http')) {
-      // มี state และเป็น URL ที่ valid -> redirect กลับไป origin (tutor frontend)
+    if (state) {
       try {
-        const originUrl = new URL(state);
-        redirectUrl = new URL('/', originUrl);
-        redirectUrl.searchParams.set('login_success', 'true');
-        redirectUrl.searchParams.set('user_id', user.id);
-        redirectUrl.searchParams.set('user_name', encodeURIComponent(user.name));
-        redirectUrl.searchParams.set('user_email', encodeURIComponent(user.email));
-        redirectUrl.searchParams.set('line_id', user.lineId);
-        console.log('✅ Redirecting to external frontend:', redirectUrl.toString());
+        const stateData = JSON.parse(state);
+        if (stateData.returnUrl) {
+          redirectUrl = new URL(stateData.returnUrl, request.url);
+        }
       } catch (e) {
-        console.error('❌ Invalid state URL, falling back to internal redirect');
-        redirectUrl = new URL('/', request.url);
-        redirectUrl.searchParams.set('login_success', 'true');
+        console.log('State is not JSON, treating as plain URL');
+        if (state.startsWith('http')) {
+          redirectUrl = new URL(state);
+        }
       }
-    } else {
-      // ไม่มี state หรือไม่ใช่ URL -> redirect ภายใน e-learning
-      redirectUrl = new URL('/', request.url);
-      redirectUrl.searchParams.set('login_success', 'true');
-      redirectUrl.searchParams.set('user_name', user.name);
     }
     
-    return NextResponse.redirect(redirectUrl);
+    if (!redirectUrl) {
+      redirectUrl = new URL('/', request.url);
+    }
+
+    // ส่ง token และ user data กลับไปทาง query params (จะถูกเก็บใน localStorage ที่ frontend)
+    redirectUrl.searchParams.set('login_success', 'true');
+    redirectUrl.searchParams.set('user_id', user.id);
+    redirectUrl.searchParams.set('line_id', user.lineId);
+    redirectUrl.searchParams.set('token', token);
+    
+    console.log('✅ Redirecting to:', redirectUrl.pathname);
+    
+    // สร้าง response พร้อม set cookie
+    const response = NextResponse.redirect(redirectUrl);
+    
+    // Set HTTP-only cookie สำหรับ token
+    response.cookies.set('auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+      path: '/',
+    });
+    
+    // Set user data cookie (ไม่ sensitive)
+    response.cookies.set('user_data', JSON.stringify({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      image: user.image,
+    }), {
+      httpOnly: false, // ให้ JavaScript อ่านได้
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+    
+    return response;
 
   } catch (error) {
     console.error('❌ LINE OAuth callback error:', {

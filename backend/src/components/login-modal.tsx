@@ -59,12 +59,21 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           กล่องโต้ตอบเข้าสู่ระบบด้วย LINE
         </DialogDescription>
 
-        <DialogHeader className="px-6 pt-6 pb-3">
-          <DialogTitle className="text-xl font-semibold text-gray-900 w-fit mx-auto">
-            เข้าสู่ระบบ
-          </DialogTitle>
+        <DialogHeader className="px-6 pt-8 pb-4">
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative">
+              <img 
+                src="/new-logo.png" 
+                alt="ฟิสิกส์พี่เต้ย" 
+                className="h-24 w-auto drop-shadow-md" 
+              />
+            </div>
+            <DialogTitle className="text-2xl font-bold text-gray-900">
+              เข้าสู่ระบบ
+            </DialogTitle>
+          </div>
 
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-gray-500 text-center leading-relaxed">
             ใช้ LINE เพื่อเข้าสู่ระบบและซิงก์ความคืบหน้าทุกอุปกรณ์
           </p>
         </DialogHeader>

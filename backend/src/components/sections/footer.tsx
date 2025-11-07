@@ -70,9 +70,9 @@ export function Footer() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 bg-gray-800 hover:bg-yellow-400 rounded-lg flex items-center justify-center transition-colors duration-200 group"
+                    className="w-10 h-10 bg-white hover:bg-yellow-400 rounded-lg flex items-center justify-center transition-colors duration-200 group"
                   >
-                    <span className="group-hover:text-white">{getSocialIcon(social.platform)}</span>
+                    <span className="text-gray-900 group-hover:text-white">{getSocialIcon(social.platform)}</span>
                   </Link>
                 ))}
               </div>
@@ -129,15 +129,14 @@ export function Footer() {
 
 
             <div className="mt-8">
-              <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 cursor-pointer hover:font-bold">
               <Link
-    href="https://line.me/ti/p/@csw9917j"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
+                href="https://line.me/ti/p/@csw9917j"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-yellow-400 hover:bg-yellow-500 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 text-center hover:font-bold"
+              >
                 ติดต่อเราเลย
-                </Link>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

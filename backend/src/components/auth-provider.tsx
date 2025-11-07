@@ -27,53 +27,63 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let active = true
     const init = async () => {
       try {
-        // check login success callback 
+        // check login success callback with token
         const urlParams = new URLSearchParams(window.location.search)
         const loginSuccess = urlParams.get('login_success')
         const userId = urlParams.get('user_id')
-        const userName = urlParams.get('user_name')
-        const userEmail = urlParams.get('user_email')
+        const token = urlParams.get('token')
         const lineId = urlParams.get('line_id')
         
-        if (loginSuccess === 'true' && userId && userName) {
-          // create user object from URL parameters
-          const userData = {
-            id: userId,
-            name: decodeURIComponent(userName),
-            email: decodeURIComponent(userEmail || ''),
-            lineId: lineId,
-            role: 'STUDENT' 
-          }
-
-          // transform temporary data into JWT token 
+        if (loginSuccess === 'true' && userId && token) {
+          // มี token จาก callback แล้ว
           try {
-            const tokenResult = await exchangeToken(userId, lineId || undefined)
-            if (tokenResult.success && tokenResult.data) {
-              setUser(tokenResult.data.user)
-              localStorage.setItem('user', JSON.stringify(tokenResult.data.user))
-              localStorage.setItem('token', tokenResult.data.token)
-              localStorage.removeItem('temp_token') // clear temp token
-
-              console.log('✅ LINE login success with JWT token:', tokenResult.data.user)
+            // Validate token
+            const { data: result } = await http.post(`/api/external/auth/validate`, { token })
+            if (result.valid && result.user) {
+              if (active) {
+                setUser(result.user)
+                localStorage.setItem('user', JSON.stringify(result.user))
+                localStorage.setItem('token', token)
+                console.log('✅ LINE login success:', result.user.name)
+              }
             } else {
-              // when exchange failed, use temp data
-              setUser(userData)
-              localStorage.setItem('user', JSON.stringify(userData))
-              localStorage.setItem('temp_token', `temp_${userId}_${Date.now()}`)
-              console.log('⚠️ Using temporary token, exchange failed:', tokenResult.message)
+              console.error('Token validation failed')
             }
           } catch (error) {
-            // when exchange error, use temp data
-            setUser(userData)
-            localStorage.setItem('user', JSON.stringify(userData))
-            localStorage.setItem('temp_token', `temp_${userId}_${Date.now()}`)
-            console.log('⚠️ Using temporary token, exchange error:', error)
+            console.error('Token validation error:', error)
           }
 
           // remove parameters from URL
           window.history.replaceState({}, document.title, window.location.pathname)
           if (active) setLoading(false)
           return
+        }
+
+        // ตรวจสอบ cookie ก่อน (จาก LINE callback)
+        const getCookie = (name: string) => {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop()?.split(';').shift();
+          return null;
+        };
+
+        const userDataCookie = getCookie('user_data');
+        const authTokenCookie = getCookie('auth_token');
+
+        if (userDataCookie && authTokenCookie) {
+          try {
+            const userData = JSON.parse(decodeURIComponent(userDataCookie));
+            if (active) {
+              setUser(userData);
+              localStorage.setItem('user', JSON.stringify(userData));
+              localStorage.setItem('token', authTokenCookie);
+              console.log('✅ Restored session from cookie:', userData.name);
+            }
+            if (active) setLoading(false);
+            return;
+          } catch (e) {
+            console.error('Failed to parse user cookie:', e);
+          }
         }
 
         // check LINE callback code 

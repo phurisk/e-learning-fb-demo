@@ -725,9 +725,9 @@ export default function CourseDetailPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-8 gap-x-12">
 
               <section className="lg:col-span-2 space-y-8 order-1">
-                <motion.div variants={fadeInUp} initial="initial" animate="animate" className="w-full max-w-full">
-                  <div className="mb-6">
-                    <AspectRatio ratio={16 / 9}>
+                <motion.div variants={fadeInUp} initial="initial" animate="animate" className="w-full">
+                  <div className="mb-6 w-full">
+                    <AspectRatio ratio={16 / 9} className="w-full">
                       <div className="group relative h-full w-full overflow-hidden rounded-2xl ring-1 ring-black/5 shadow-lg bg-black">
                     {introSrc ? (
                       (() => {

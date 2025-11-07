@@ -243,8 +243,8 @@ export default function HighCoursesPage() {
         </div>
 
         {showVideoSection && (
-          <div className="mb-16 flex items-center justify-center">
-            <div className="aspect-video w-200 bg-gray-900 rounded-2xl overflow-hidden relative">
+          <div className="mb-16">
+            <div className="aspect-video w-full bg-gray-900 rounded-2xl overflow-hidden relative max-w-full">
               {(() => {
                 // Extract YouTube ID from video URL
                 const extractYouTubeId = (url: string) => {

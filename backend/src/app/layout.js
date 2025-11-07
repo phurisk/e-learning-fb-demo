@@ -1,7 +1,7 @@
 "use client";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Sarabun } from "next/font/google";
 import "./globals.css";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { AuthProvider as BackendAuthProvider } from "./contexts/AuthContext";
 import { SessionProvider } from "next-auth/react";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { AntdConfigProvider } from '../lib/antd';
@@ -16,25 +16,32 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const sarabun = Sarabun({
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sarabun",
+  display: "swap",
+  preload: false,
+});
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="th" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="th" className={`${geistSans.variable} ${geistMono.variable} ${sarabun.variable}`} suppressHydrationWarning>
       <head>
-        <title>ฟิสิกส์พี่เต้ย Learning System</title>
-        <meta
-          name="description"
-          content="ระบบเรียนออนไลน์ฟิสิกส์และคณิตศาสตร์"
-        />
+        <link rel="icon" href="/new-logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/new-logo.png" />
+        <meta name="theme-color" content="#EAB308" />
+        <title>ฟิสิกส์พี่เต้ย - เรียนฟิสิกส์อย่างเป็นระบบ</title>
       </head>
-      <body style={{ fontFamily: "var(--font-geist-sans)" }}>
+      <body>
         <SessionProvider>
-          <AuthProvider>
+          <BackendAuthProvider>
             <AntdRegistry>
               <AntdConfigProvider>
                 {children}
               </AntdConfigProvider>
             </AntdRegistry>
-          </AuthProvider>
+          </BackendAuthProvider>
         </SessionProvider>
       </body>
     </html>
