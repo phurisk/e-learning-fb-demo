@@ -13,8 +13,6 @@ import { Footer } from "@/components/sections/footer"
 import PopupPromotion from "@/components/sections/popup-promotion"
 import AcademicTeam from "@/components/sections/academic-team"
 import ViewOfTeaching from "@/components/sections/view-of-teaching"
-import type { HeroSlide } from "@/lib/server/hero-banner"
-
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
@@ -29,11 +27,7 @@ const staggerContainer = {
   },
 }
 
-type HomePageClientProps = {
-  heroSlides: HeroSlide[]
-}
-
-export default function HomePageClient({ heroSlides }: HomePageClientProps) {
+export default function HomePageClient() {
   return (
     <motion.div
       className="min-h-screen bg-white"
@@ -43,7 +37,7 @@ export default function HomePageClient({ heroSlides }: HomePageClientProps) {
     >
       <PopupPromotion />
 
-      <HeroBanner slides={heroSlides} />
+      <HeroBanner />
 
       <motion.div variants={fadeInUp}>
         <AboutTeacher />

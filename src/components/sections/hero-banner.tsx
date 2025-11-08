@@ -2,22 +2,86 @@
 
 import { useEffect, useMemo, useState } from "react"
 import Image from "next/image"
-import type { HeroSlide } from "@/lib/server/hero-banner"
+import http from "@/lib/http"
+import { bannerSlides as fallbackSlides } from "@/lib/dummy-data"
 
-type HeroBannerProps = {
-  slides: HeroSlide[]
+type HeroSlide = {
+  id: string | number
+  desktop: string
+  mobile: string
 }
 
-export default function HeroBanner({ slides }: HeroBannerProps) {
+export default function HeroBanner() {
+  const [slides, setSlides] = useState<HeroSlide[]>([])
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [loading, setLoading] = useState(true)
 
-  // Debug: Log slides on mount (only in development)
+  // Fetch slides from API (client-side)
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('🎨 [HeroBanner] Loaded', slides.length, 'slides')
+    let mounted = true
+      ; (async () => {
+        try {
+          const params = new URLSearchParams({
+            postType: "ป้ายประกาศหลัก",
+            limit: "10"
+          })
+          const res = await http.get(`/api/posts?${params.toString()}`)
+          const json: any = res.data || null
+          const items = Array.isArray(json) ? json : Array.isArray(json?.data) ? json.data : []
+
+          const now = new Date()
+          const activePublished = items.filter((item: any) => {
+            const isActive = item?.isActive !== false
+            const publishedAt = item?.publishedAt ? new Date(item.publishedAt) : null
+            return (
+              item?.postType?.name === "ป้ายประกาศหลัก" &&
+              isActive &&
+              (!publishedAt || publishedAt <= now)
+            )
+          })
+
+          const mapped: HeroSlide[] = activePublished
+            .map((p: any, idx: number) => ({
+              id: p?.id ?? idx,
+              desktop: p?.imageUrl || p?.imageUrlMobileMode || "",
+              mobile: p?.imageUrlMobileMode || p?.imageUrl || "",
+            }))
+            .filter((slide: HeroSlide) => !!(slide.desktop || slide.mobile))
+
+          if (!mounted) return
+
+          if (res.status >= 200 && res.status < 300 && mapped.length > 0) {
+            setSlides(mapped)
+            console.log('✅ [HeroBanner] Loaded', mapped.length, 'slides from API')
+          } else {
+            // Use fallback slides
+            const fallback = (fallbackSlides || []).map((p: any, idx: number) => ({
+              id: p?.id ?? idx,
+              desktop: p?.imageUrl || p?.imageUrlMobileMode || "",
+              mobile: p?.imageUrlMobileMode || p?.imageUrl || "",
+            }))
+            setSlides(fallback)
+            console.log('⚠️ [HeroBanner] Using fallback slides')
+          }
+        } catch (error) {
+          console.error('❌ [HeroBanner] Error fetching slides:', error)
+          // Use fallback slides on error
+          const fallback = (fallbackSlides || []).map((p: any, idx: number) => ({
+            id: p?.id ?? idx,
+            desktop: p?.imageUrl || p?.imageUrlMobileMode || "",
+            mobile: p?.imageUrlMobileMode || p?.imageUrl || "",
+          }))
+          setSlides(fallback)
+        } finally {
+          if (mounted) setLoading(false)
+        }
+      })()
+
+    return () => {
+      mounted = false
     }
-  }, [slides])
+  }, [])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -32,9 +96,9 @@ export default function HeroBanner({ slides }: HeroBannerProps) {
     }
 
     // Legacy browsers
-    ;(mql as any).addListener?.(onChange)
+    ; (mql as any).addListener?.(onChange)
     return () => {
-      ;(mql as any).removeListener?.(onChange)
+      ; (mql as any).removeListener?.(onChange)
     }
   }, [])
 
@@ -54,8 +118,6 @@ export default function HeroBanner({ slides }: HeroBannerProps) {
     return isMobile ? slide.mobile || slide.desktop : slide.desktop || slide.mobile
   }
 
-  const loading = slides.length === 0
-
   const indicators = useMemo(() => slides.map((_, index) => index), [slides])
 
   return (
@@ -73,9 +135,8 @@ export default function HeroBanner({ slides }: HeroBannerProps) {
             return (
               <div
                 key={slide.id}
-                className={`absolute inset-0 transition-opacity duration-700 ${
-                  index === currentSlide ? "opacity-100" : "opacity-0"
-                }`}
+                className={`absolute inset-0 transition-opacity duration-700 ${index === currentSlide ? "opacity-100" : "opacity-0"
+                  }`}
               >
                 <Image
                   src={src || "/placeholder.svg"}
@@ -96,9 +157,8 @@ export default function HeroBanner({ slides }: HeroBannerProps) {
             {indicators.map((index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentSlide ? "bg-yellow-400" : "bg-white/80"
-                }`}
+                className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === currentSlide ? "bg-yellow-400" : "bg-white/80"
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
                 onClick={() => setCurrentSlide(index)}
               />

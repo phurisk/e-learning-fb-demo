@@ -1,5 +1,4 @@
 import HomePageClient from "@/components/home-page-client"
-import { getHeroSlides } from "@/lib/server/hero-banner"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -8,7 +7,6 @@ export const metadata: Metadata = {
   keywords: "ฟิสิกส์, กวดวิชา, ครูพี่เต้ย, เรียนฟิสิกส์, GAT, PAT, ฟิสิกส์ม.ปลาย",
 }
 
-export default async function HomePage() {
-  const heroSlides = await getHeroSlides()
-  return <HomePageClient heroSlides={heroSlides} />
+export default function HomePage() {
+  return <HomePageClient />
 }
