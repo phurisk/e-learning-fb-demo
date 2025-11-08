@@ -26,21 +26,43 @@ function fallbackHeroSlides(): HeroSlide[] {
 }
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
-  const baseUrl = process.env.API_BASE_URL
+  const isDev = process.env.NODE_ENV === 'development'
+
+
+  let baseUrl = process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_URL
+
+  
   if (!baseUrl) {
-    return fallbackHeroSlides()
+    if (process.env.VERCEL_URL && process.env.VERCEL_URL !== 'undefined') {
+      baseUrl = `https://${process.env.VERCEL_URL}`
+    } else {
+      // Default to localhost for development
+      baseUrl = 'http://localhost:3000'
+    }
+  }
+
+  if (isDev) {
+    console.log('🎯 [Hero Banner] Using base URL:', baseUrl)
   }
 
   try {
-    const url = new URL("/api/posts", baseUrl.replace(/\/$/, ""))
+    const url = new URL("/api/posts", baseUrl)
     url.searchParams.set("postType", TARGET_NAME)
     url.searchParams.set("limit", "10")
 
+    if (isDev) {
+      console.log('🎯 [Hero Banner] Fetching from:', url.toString())
+    }
+
     const res = await fetch(url.toString(), {
       next: { revalidate: 60 },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
 
     if (!res.ok) {
+      console.warn(`⚠️ [Hero Banner] API returned ${res.status}, using fallback`)
       return fallbackHeroSlides()
     }
 
@@ -63,8 +85,14 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
     })
 
     const mapped = normalizeSlides(activePublished)
+
+    if (isDev) {
+      console.log('✅ [Hero Banner] Loaded', mapped.length, 'slides')
+    }
+
     return mapped.length > 0 ? mapped : fallbackHeroSlides()
-  } catch {
+  } catch (error) {
+    console.error('❌ [Hero Banner] Error:', error instanceof Error ? error.message : 'Unknown error')
     return fallbackHeroSlides()
   }
 }

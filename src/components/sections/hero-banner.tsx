@@ -12,6 +12,13 @@ export default function HeroBanner({ slides }: HeroBannerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
+  // Debug: Log slides on mount (only in development)
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🎨 [HeroBanner] Loaded', slides.length, 'slides')
+    }
+  }, [slides])
+
   useEffect(() => {
     if (typeof window === "undefined") return
     const mql = window.matchMedia("(max-width: 767px)")
@@ -43,8 +50,9 @@ export default function HeroBanner({ slides }: HeroBannerProps) {
     setCurrentSlide(0)
   }, [slides])
 
-  const pickSrc = (slide: HeroSlide) =>
-    isMobile ? slide.mobile || slide.desktop : slide.desktop || slide.mobile
+  const pickSrc = (slide: HeroSlide) => {
+    return isMobile ? slide.mobile || slide.desktop : slide.desktop || slide.mobile
+  }
 
   const loading = slides.length === 0
 
