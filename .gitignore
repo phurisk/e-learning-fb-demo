@@ -111,9 +111,6 @@ Thumbs.db
 */prisma/migrations/
 app/prisma/migrations/
 
-# Uploads
-*/public/uploads/
-app/public/uploads/
 
 # Package manager lock files (keep one)
 package-lock.json
